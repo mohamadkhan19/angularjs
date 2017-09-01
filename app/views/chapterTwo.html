@@ -1,0 +1,175 @@
+<!-- ~~~~~~~~~~~~~~~~~~ this is START of chapter number 4 from the book "angular up and running"~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<div class = "container">
+
+<h1>Chapter 2 - Forms, Input and Services</h1>	
+	<div class="row">
+		<div class= "col-sm-4" ng-controller="chapterTwofirstCtrl as ctrl">  
+			<h3>Example ng-model</h3>
+			<input type="text" ng-model="ctrl.username"/>
+			You typed {{ctrl.username}}
+		</div>
+		<div class= "col-sm-4" ng-controller="chapterTwosecondCtrl as ctrl">
+			<h3>Simple ng-model</h3>
+			<input type="text" ng-model="ctrl.username">
+			<input type="password" ng-model="ctrl.password">
+			<button ng-click="ctrl.change()">Change Values</button>
+			<button ng-click="ctrl.submit()">Submit</button>
+		</div>
+		<div class= "col-sm-4" ng-controller="chapterTwothirdCtrl as ctrl">
+			<h3>Forms</h3>
+			<p>• We wrapped our text fields and button inside a form. And instead of an ng-click
+			on the button, we added an ng-submit directive on the form itself. The ng-submit
+			directive has a few advantages over having an ng-click on a button when it comes
+			to forms. A form submit event can be triggered in multiple ways: clicking the Submit
+			button, or hitting Enter on a text field. The ng-submit gets triggered on all those
+			events, whereas the ng-click will only be triggered when the user clicks the button.<br>
+			• Instead of binding to ctrl.username and ctrl.password, we bind to
+			ctrl.user.username and ctrl.user.password. Notice that we did not declare a
+			user object in the controller (that is, self.user = {}). When you use ng-model,
+			AngularJS automatically creates the objects and keys necessary in the chain to instantiate
+			a data-binding connection. In this case, until the user types something into
+			the username or password field, there is no user object. The first letter typed into
+			either the username or password field causes the user object to be created, and the
+			value to be assigned to the correct field in it.</p>
+			<form ng-submit="ctrl.submit()">
+			<input type="text" ng-model="ctrl.user.username">
+			<input type="password" ng-model="ctrl.user.password">
+			<input type="submit" value="Submit">
+			</form>
+			
+		</div>
+	</div>
+
+	<div class="row">
+		<div class= "col-sm-4" ng-controller="chapterTwofourthCtrl as ctrl">  
+			<h3>Two-forms-databinding</h3>
+			<form ng-submit="ctrl.submit1()">
+				<input type="text" ng-model="ctrl.username">
+				<input type="password" ng-model="ctrl.password">
+				<input type="submit" value="Submit">
+			</form>
+			<form ng-submit="ctrl.submit2()">
+				<input type="text" ng-model="ctrl.user.username">
+				<input type="password" ng-model="ctrl.user.password">
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+		<div class= "col-sm-4" ng-controller="chapterTwofifthCtrl as ctrl">
+		<h3>Form Validation States</h3>
+		<p>Here you have to meet the required conditions inorder to make the submit button work. Conditions are fields have to be filled in and the username should have min lenght of 4 (also read forms states from book)</p>
+			<form ng-submit="ctrl.submit()" name="myForm">
+				<input type="text"
+					ng-model="ctrl.user.username"
+					required
+					ng-minlength="4">
+				<input type="password"
+					ng-model="ctrl.user.password"
+					required>
+				<input type="submit"
+					value="Submit"
+					ng-disabled="myForm.$invalid">
+			</form>
+		</div>
+		<div class= "col-sm-4" ng-controller="chapterTwosixthCtrl as ctrl">
+			<h3>Forms Error Message</h3>
+			<form ng-submit="ctrl.submit()" name="myForm">
+				<input type="text"
+					name="uname"
+					ng-model="ctrl.user.username"
+					required
+					ng-minlength="4">
+				<span ng-show="myForm.uname.$error.required">
+				This is a required field
+				</span>
+				<span ng-show="myForm.uname.$error.minlength">
+				Minimum length required is 4
+				</span>
+				<span ng-show="myForm.uname.$invalid">
+				This field is invalid
+				</span>
+				<input type="password"
+					name="pwd"
+					ng-model="ctrl.user.password"
+					required>
+				<span ng-show="myForm.pwd.$error.required">
+				This is a required field
+				</span>
+				<input type="submit"
+					value="Submit"
+					ng-disabled="myForm.$invalid">
+			</form>
+			
+		</div>
+	</div>
+
+	<div class="row">
+		<div class= "col-sm-4" ng-controller="chapterTwoseventhCtrl as ctrl">  
+			<h3>General form fields and types</h3>
+			<form ng-submit="ctrl.submit()" name="myForm">
+				<input type="text"
+					class="username"
+					name="uname"
+					placeholder="username" 
+					ng-model="ctrl.user.username"
+					required
+					ng-minlength="4">
+				<textarea ng-model="ctrl.user.address" required></textarea>
+				<input type="checkbox" ng-model="ctrl.user.agree" placeholder="checkbox"> 
+				<input type="checkbox"
+					ng-model="ctrl.user.state"
+					ng-true-value="1"
+					ng-false-value="0">
+				<div ng-init="otherGender = 'other'">
+					<input type="radio"
+					name="gender"
+					ng-model="ctrl.user.gender"
+					value="male">Male
+					<input type="radio"
+					name="gender"
+					ng-model="ctrl.user.gender"
+					value="female">Female
+					<input type="radio"
+					name="gender"
+					ng-model="ctrl.user.gender"
+					ng-value="otherGender">{{otherGender}}
+				</div>
+				<div ng-init="location = 'India'">
+					<select ng-model="ctrl.user.location">
+					<option value="USA">USA</option>
+					<option value="India">India</option>
+					<option value="Other">None of the above</option>
+					</select>
+				</div>
+				<input type="submit"
+					value="Submit"
+					ng-disabled="myForm.$invalid">
+			</form>
+		</div>
+		<div class= "col-sm-4" ng-controller="chapterTwoeigthCtrl as ctrl">
+		<h3>Form Validation States</h3>
+			<div>
+				<h2>What are your favorite sports?</h2>
+				<div ng-repeat="sport in ctrl.sports">
+					<label ng-bind="sport.label"></label>
+					<div>
+						With Binding:
+						<input type="checkbox"
+							ng-model="sport.selected"
+							ng-true-value="1"
+							ng-false-value="0">
+					</div>
+					<div>
+						Using ng-checked:
+						<input type="checkbox"
+							ng-checked="sport.selected === '1'">
+					</div>
+					<div>
+						Current state: {{sport.selected}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

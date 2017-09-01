@@ -1,0 +1,48 @@
+<!-- ~~~~~~~~~~~~~~~~~~ this is START of chapter number 5 from the book "angular up and running"~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<div class = "container">
+
+	<h1>Chapter 3 - Services</h1>	
+		<div class="row">
+			<div class= "col-sm-4" ng-controller="chapterThreefirstCtrl as main">  
+				<h3>Working of controller, ng- switch</h3>
+				<div>
+					<button ng-click="main.open('first')">Open First</button>
+					<button ng-click="main.open('second')">Open Second</button>
+					<div ng-switch on="main.tab">
+						<div ng-switch-when="first">
+							<div ng-controller="SubCtrl as ctrl">
+								<h3>First tab</h3>
+								<ul>
+									<li ng-repeat="item in ctrl.list">
+										<span ng-bind="item.label"></span>
+									</li>
+								</ul>
+								<button ng-click="ctrl.add()">Add More Items</button>
+							</div>
+						</div>
+						<div ng-switch-when="second">
+							<div ng-controller="chapterThreeSubCtrl as ctrl">
+								<h3>Second tab</h3>
+								<ul>
+									<li ng-repeat="item in ctrl.list">
+										<span ng-bind="item.label"></span>
+									</li>
+								</ul>
+								<button ng-click="ctrl.add()">Add More Items</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<div class= "col-sm-4" ng-controller="chapterThreesecondCtrl as ctrl">
+				<h1>Hello Services!</h1>
+				<button ng-click="ctrl.logStuff()">Log something</button>	
+			</div>
+			<!-- <div class= "col-sm-4" ng-controller="thirdCtrl as ctrl">
+				<h3>Forms</h3>
+					
+			</div> -->
+		</div>
+</div>

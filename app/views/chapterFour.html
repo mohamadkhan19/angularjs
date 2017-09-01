@@ -1,0 +1,121 @@
+<div class = "container">
+	<h1>Chapter 4 - Filters</h1>	
+	<div class="row">
+		<div class= "col-sm-4" ng-controller="chapterFourfirstCtrl as ctrl"> 
+			<h3>Filter example</h3>
+			<div>
+				Amount as a number: {{ctrl.amount | number}}
+			</div>
+			<div>
+				Total Cost as a currency: {{ctrl.totalCost | currency}}
+			</div>
+			<div>
+				Total Cost in INR: {{ctrl.totalCost | currency:'INR '}}
+			</div>
+			<div>
+				Shouting the name: {{ctrl.name | uppercase}}
+			</div>
+			<div>
+				Whispering the name: {{ctrl.name | lowercase}}
+			</div>
+			<div>
+				Start Time: {{ctrl.startTime | date:'medium'}}
+			</div>
+		</div>
+		<div class= "col-sm-4" ng-controller="chapterFoursecondCtrl as ctrl">
+			<h3>combination of filters with string and numbers</h3>
+			<ul>
+				<li>
+					Amount - {{ctrl.amount}}
+				</li>
+				<li>
+					Amount - Default Currency: {{ctrl.amount | currency}}
+				</li>
+				<li>
+					<!-- Using the English pound sign -->
+					Amount - INR Currency: {{ctrl.amount | currency:'&#163 '}}
+				</li>
+				<li>
+					Amount - Number: {{ctrl.amount | number}}
+				</li>
+				<li>
+					Amount - No. with 4 decimals: {{ctrl.amount | number:4}}
+				</li>
+				<li>
+					Name with no filters: {{ctrl.name}}
+				</li>
+				<li>
+					Name - lowercase filter: {{ctrl.name | lowercase}}
+				</li>
+				<li>
+					Name - uppercase filter: {{ctrl.name | uppercase}}
+				</li>
+				<li>
+					The JSON Filter: {{ctrl.obj | json}}
+				</li>
+				<li>
+					Timestamp: {{ctrl.startTime}}
+				</li>
+				<li>
+					Default Date filter: {{ctrl.startTime | date}}
+				</li>
+				<li>
+					Medium Date filter: {{ctrl.startTime | date:'medium'}}
+				</li>
+				<li>
+					Custom Date filter: {{ctrl.startTime | date:'M/dd, yyyy'}}
+				</li>
+			</ul>
+		</div>
+		<div class= "col-sm-4" ng-controller="chapterFourthirdCtrl as ctrl">
+			<h3>filter array</h3>
+			<button ng-click="ctrl.currentFilter = 'string'">
+				Filter with String
+			</button>
+			<button ng-click="ctrl.currentFilter = 'object'">
+				Filter with Object
+			</button>
+			<button ng-click="ctrl.currentFilter = 'function'">
+				Filter with Function
+			</button>
+				Filter Text
+			<input type="text"
+				ng-model="ctrl.filterOptions['string']">
+				Show Done Only
+			<input type="checkbox"
+				ng-model="ctrl.filterOptions['object'].done">
+			<ul>
+				<li ng-repeat="note in ctrl.notes |
+					filter:ctrl.filterOptions[ctrl.currentFilter] |
+					orderBy:ctrl.sortOrder |
+					limitTo:5">
+					{{note.label}} - {{note.type}} - {{note.done}}
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class= "col-sm-4" ng-controller="chapterFourforthCtrl as ctrl"> 
+			<h3>custom filter</h3>
+			<div>
+				Start Time (Timestamp): {{ctrl.startTime}}
+			</div>
+			<div>
+				Start Time (DateTime): {{ctrl.startTime | date:'medium'}}
+			</div>
+			<div>
+				Start Time (Our filter): {{ctrl.startTime | timeAgo}}
+			</div>
+			<div>
+				Start Time (Timestamp): {{ctrl.startTime}}
+			</div>
+			<div>
+				Start Time (DateTime): {{ctrl.startTime | date:'medium'}}
+			</div>
+			<div>
+				Start Time (Our filter): {{ctrl.startTime | timeAgo}}
+			</div>
+		</div>
+	</div>
+</div>
